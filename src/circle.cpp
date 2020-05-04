@@ -21,7 +21,7 @@ FilledCircle::FilledCircle(vec4 center, GLfloat radius, int np)
 
 void FilledCircle::render()
 {
-    glBindVertexArrayAPPLE(vao);
+    glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLE_FAN, 0, pointsNum);
 }
 

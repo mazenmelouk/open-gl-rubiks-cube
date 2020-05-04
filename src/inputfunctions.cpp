@@ -3,33 +3,33 @@
 
 void special(int key, int x, int y)
 {
-	switch (key)
-	{
-	case GLUT_KEY_UP:
-		newGlowIndex = glowIndex - 1;
-		if (newGlowIndex < 0)
-			newGlowIndex = 2;
-		newGlowFace = glowFace;
-		faceChanged = true;
-		break;
-	case GLUT_KEY_DOWN:
-		newGlowIndex = (glowIndex + 1) % 3;
-		newGlowFace = glowFace;
-		faceChanged = true;
-		break;
-	case GLUT_KEY_RIGHT:
-		newGlowIndex = glowIndex;
-		newGlowFace = glowFace - 1;
-		if (newGlowFace < 0)
-			newGlowFace = 2;
-		faceChanged = true;
-		break;
-	case GLUT_KEY_LEFT:
-		newGlowIndex = glowIndex;
-		newGlowFace = (glowFace + 1) % 3;
-		faceChanged = true;
-		break;
-	}
+	// switch (key)
+	// {
+	// case GLUT_KEY_UP:
+	// 	newGlowIndex = glowIndex - 1;
+	// 	if (newGlowIndex < 0)
+	// 		newGlowIndex = 2;
+	// 	newGlowFace = glowFace;
+	// 	faceChanged = true;
+	// 	break;
+	// case GLUT_KEY_DOWN:
+	// 	newGlowIndex = (glowIndex + 1) % 3;
+	// 	newGlowFace = glowFace;
+	// 	faceChanged = true;
+	// 	break;
+	// case GLUT_KEY_RIGHT:
+	// 	newGlowIndex = glowIndex;
+	// 	newGlowFace = glowFace - 1;
+	// 	if (newGlowFace < 0)
+	// 		newGlowFace = 2;
+	// 	faceChanged = true;
+	// 	break;
+	// case GLUT_KEY_LEFT:
+	// 	newGlowIndex = glowIndex;
+	// 	newGlowFace = (glowFace + 1) % 3;
+	// 	faceChanged = true;
+	// 	break;
+	// }
 }
 
 GLdouble downC[3], upC[3], deltaC[3], averageC[3];
@@ -54,7 +54,7 @@ void checkSwipe(int x, int y, bool up)
 	glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
 	std::cout << "z depth is reported as: " << z << std::endl;
 	GLdouble posX, posY, posZ;
-	gluUnProject((double)x, (double)y, z, modelview, projection, viewport, &posX, &posY, &posZ);
+	// gluUnProject((double)x, (double)y, z, modelview, projection, viewport, &posX, &posY, &posZ);
 
 	if (up)
 	{

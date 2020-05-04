@@ -1,8 +1,12 @@
-// #version 150
+#version 300 es
 
-varying vec3 N;
-varying vec3 L;
-varying vec3 E;
+precision highp float;
+
+in vec3 N;
+in vec3 L;
+in vec3 E;
+
+out vec4 fragColor;
 
 uniform vec4 ambient_product;
 uniform vec4 diffuse_product;
@@ -55,6 +59,6 @@ void main()
 		beforeEffects/=2.0;
 	}
 	//final shading
-    gl_FragColor = beforeEffects;
+    fragColor = beforeEffects;
 }
 

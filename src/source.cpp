@@ -6,16 +6,13 @@
 #include <Angel.h>
 #include <material.h>
 #include <light_source.h>
-#if !CROSS_PLATFORM
-#include <Windows.h>
-#include <mmsystem.h>
-#include <sapi.h>
-#endif
 #include <ctime>
 #include <rubikscube.h>
 #include <initfunctions.h>
 #include <animations.h>
 #include <inputfunctions.h>
+
+using namespace std;
 
 void renderAll()
 {
@@ -54,46 +51,86 @@ void renderAll()
 	}
 }
 
+GLFWwindow *window;
+
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	mv = LookAt(eye, at, up);
 	glUniformMatrix4fv(model_view_loc, 1, GL_TRUE, mv);
 	renderAll();
-	glutSwapBuffers();
+	glfwSwapBuffers(window);
+	glfwPollEvents();
 }
 
-void redisplay(int unused)
+// void redisplay(int unused)
+// {
+// 	glutPostRedisplay();
+// 	glutTimerFunc(16, redisplay, 0);
+// }
+
+void error_callback(int error, const char *description)
 {
-	glutPostRedisplay();
-	glutTimerFunc(16, redisplay, 0);
+	fprintf(stderr, "Error: %s\n", description);
 }
 
 int main(int argc, char **argv)
 {
 	srand((unsigned int)time(NULL));
-	glutInit(&argc, argv);
-	if (fullScreen)
+	if (!glfwInit())
 	{
-		WindowHeight = (GLfloat)glutGet(GLUT_SCREEN_HEIGHT);
-		WindowWidth = (GLfloat)glutGet(GLUT_SCREEN_WIDTH);
+		cerr << "Failed to init glfw" << endl;
 	}
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE | GLUT_MULTISAMPLE);
-	glutInitWindowSize((int)(WindowWidth), (int)WindowHeight);
-	glutCreateWindow("Rubik's Cube");
+	// if (fullScreen)
+	// {
+	// 	WindowHeight = (GLfloat)glutGet(GLUT_SCREEN_HEIGHT);
+	// 	WindowWidth = (GLfloat)glutGet(GLUT_SCREEN_WIDTH);
+	// }
 
-	if (fullScreen)
-		glutFullScreen();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwSetErrorCallback(error_callback);
+	window = glfwCreateWindow(WindowWidth, WindowHeight, "My Title", NULL, NULL);
+	if (!window)
+	{
+		cerr << "Failed to create window" << endl;
+	}
+	glfwMakeContextCurrent(window);
+	glfwSwapInterval(1);
+	// glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE | GLUT_MULTISAMPLE | GLUT_3_2_CORE_PROFILE);
+	// glutInitWindowSize((int)(WindowWidth), (int)WindowHeight);
+	// glutCreateWindow("Rubik's Cube");
 
+	// if (fullScreen)
+	// 	glutFullScreen();
+
+	// int width, height;
+	// glfwGetFramebufferSize(window, &WindowWidth, &WindowHeight);
+
+	// glutDisplayFunc(display);
+	// glutKeyboardFunc(keyboard);
+	// glutSpecialFunc(special);
+	// glutTimerFunc(16, redisplay, 0);
+	// glLineWidth(1);
 	init();
-	glutDisplayFunc(display);
-	glutKeyboardFunc(keyboard);
-	glutSpecialFunc(special);
-	glutTimerFunc(16, redisplay, 0);
-	glLineWidth(1);
-	glutTimerFunc(10, floatView, 0);
-	glutMouseFunc(mouse);
-	glutMainLoop();
+	// #ifdef __APPLE__
+	// 	while (!glfwWindowShouldClose(window))
+	// 	{
+	// 		display();
+	// 	}
+	// #else
+	display();
+	emscripten_set_main_loop(display, 0, 1);
+	// #endif
+
+	// glutTimerFunc(10, floatView, 0);
+	// glutMouseFunc(mouse);
+	// glutMainLoop();
+
+	glfwDestroyWindow(window);
 	cleanup();
+	glfwTerminate();
 	return 0;
 }

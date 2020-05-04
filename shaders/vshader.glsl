@@ -1,6 +1,7 @@
-// #version 150
-attribute vec4 vPosition;
-attribute vec3 vNormal;
+#version 300 es
+
+in vec4 vPosition;
+in vec3 vNormal;
 
 uniform mat4 model_view;
 uniform mat4 projection;
@@ -29,10 +30,10 @@ uniform float windowWidth;
 uniform float windowHeight;
 uniform int left;
 // send the normals to each vertex so the fragment shader get the interpolated value of the normals
-varying vec3 N;
+out vec3 N;
 //same for K and E vectors
-varying vec3 L;
-varying vec3 E;
+out vec3 L;
+out vec3 E;
 
 void main()
 {

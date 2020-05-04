@@ -55,7 +55,7 @@ void Cube::calculateNormals()
 
 void Cube::render()
 {
-    glBindVertexArrayAPPLE(vao);
+    glBindVertexArray(vao);
     glDrawArrays(GL_LINES, 0, pointsNum);
 }
 
@@ -147,7 +147,7 @@ void FilledCube::calculateNormals()
 
 void FilledCube::render()
 {
-    glBindVertexArrayAPPLE(vao);
+    glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLES, 0, pointsNum);
 }
 

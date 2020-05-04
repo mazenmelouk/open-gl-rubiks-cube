@@ -49,7 +49,7 @@ void rotateFace(int animIndex)
 		rubiksCube->rotateSide(faceIndex, rotDir * M_PI / 200);
 	}
 
-	glutTimerFunc(10, rotateFace, animIndex + 1);
+	// glutTimerFunc(10, rotateFace, animIndex + 1);
 }
 void initGlowStep()
 {
@@ -143,7 +143,7 @@ void glowRims(int animIndex)
 		rubiksCube->glowRimsHorizontal(glowIndex, totalFrames, direction);
 		break;
 	}
-	glutTimerFunc(10, glowRims, animIndex + 1);
+	// glutTimerFunc(10, glowRims, animIndex + 1);
 }
 
 void glowCube(int animIndex)
@@ -168,7 +168,7 @@ void glowCube(int animIndex)
 		shapes[i]->material.diffuseK.w = 1;
 	}
 
-	glutTimerFunc(10, glowCube, animIndex + 1);
+	// glutTimerFunc(10, glowCube, animIndex + 1);
 }
 
 void floatView(int animIndex)
@@ -176,7 +176,7 @@ void floatView(int animIndex)
 	if (stopAnim)
 	{
 		std::cout << "Stopped!" << std::endl;
-		glutTimerFunc(10, floatView, animIndex);
+		// glutTimerFunc(10, floatView, animIndex);
 		return;
 	}
 	if (animIndex == 400 && dir == 'l')
@@ -194,7 +194,7 @@ void floatView(int animIndex)
 	}
 	mat4 my = RotateY(dir == 'l' ? 0.5f : -0.5f);
 	eye = my * eye;
-	glutTimerFunc(10, floatView, animIndex + 1);
+	// glutTimerFunc(10, floatView, animIndex + 1);
 }
 
 void animateAssemble(int unused)
@@ -205,7 +205,9 @@ void animateAssemble(int unused)
 	mat4 rotation = RotateY(-10);
 	eye = rotation * eye;
 	if (rubiksCube->assemble())
-		glutTimerFunc(20, animateAssemble, 0);
+	{
+	}
+	// glutTimerFunc(20, animateAssemble, 0);
 	else
 	{
 		dir = 'r';
@@ -221,7 +223,7 @@ void animateWater(int unused)
 		return;
 	waveTime += wavePeriod / 1000;
 	glUniform1f(wavetime_loc, waveTime);
-	glutTimerFunc((unsigned int)wavePeriod, animateWater, 0);
+	// glutTimerFunc((unsigned int)wavePeriod, animateWater, 0);
 }
 
 void animateLSD(int animIndex)
@@ -252,7 +254,7 @@ void animateLSD(int animIndex)
 	{
 		shapes[i]->scale = vec3(xScale, yScale, zScale);
 	}
-	glutTimerFunc(10, animateLSD, animIndex + 1);
+	// glutTimerFunc(10, animateLSD, animIndex + 1);
 }
 
 void animateNoise(int animIndex)
@@ -267,7 +269,7 @@ void animateNoise(int animIndex)
 		y = 2 * (rand() % 2 - 0.5) * (rand() % ((int)WindowHeight / 3));
 		noise[i]->translation = vec3(x, y, 0);
 	}
-	glutTimerFunc(10, animateNoise, animIndex);
+	// glutTimerFunc(10, animateNoise, animIndex);
 }
 
 short shakeDir = 1;
@@ -326,7 +328,7 @@ void animateHarlemShake1(int animIndex)
 	{
 		shapes[i]->translation = vec3(0, 0, shapes[i]->translation.z + (shakeDir == 1 ? 2.5f : -2.5f));
 	}
-	glutTimerFunc(10, animateHarlemShake1, animIndex + 1);
+	// glutTimerFunc(10, animateHarlemShake1, animIndex + 1);
 }
 
 void animateHarlemShake2(int animIndex)
@@ -358,7 +360,7 @@ void animateHarlemShake2(int animIndex)
 					rubiksCube->rotateCubelet(i, j, k, shakeDir * DegreesToRadians * shakeMag[i][j][k] / 52.0f);
 					break;
 				}
-	glutTimerFunc(10, animateHarlemShake2, animIndex + 1);
+	// glutTimerFunc(10, animateHarlemShake2, animIndex + 1);
 }
 
 void animateHarlemShake3(int animIndex)
@@ -388,5 +390,5 @@ void animateHarlemShake3(int animIndex)
 					rubiksCube->rotateCubelet(i, j, k, shakeDir * DegreesToRadians * shakeMag[i][j][k] / 200.0f);
 					break;
 				}
-	glutTimerFunc(10, animateHarlemShake3, animIndex + 1);
+	// glutTimerFunc(10, animateHarlemShake3, animIndex + 1);
 }

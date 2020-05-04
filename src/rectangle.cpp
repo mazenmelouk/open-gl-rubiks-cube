@@ -20,7 +20,7 @@ Rectangle::Rectangle(vec4 center, float width, float height)
 
 void Rectangle::render()
 {
-	glBindVertexArrayAPPLE(vao);
+	glBindVertexArray(vao);
 	glDrawArrays(GL_LINE_LOOP, 0, pointsNum);
 }
 
@@ -63,7 +63,7 @@ FilledRectangle::FilledRectangle(vec4 _points[4])
 
 void FilledRectangle::render()
 {
-	glBindVertexArrayAPPLE(vao);
+	glBindVertexArray(vao);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, pointsNum);
 }
 

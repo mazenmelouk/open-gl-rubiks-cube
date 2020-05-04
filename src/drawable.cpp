@@ -19,8 +19,8 @@ void Drawable::calculateNormals() {}
 void Drawable::init()
 {
     // Create a vertex array object
-    glGenVertexArraysAPPLE(1, &vao);
-    glBindVertexArrayAPPLE(vao);
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
 
     // BUFFERS
     // Create and initialize a buffer object
@@ -51,7 +51,7 @@ void Drawable::init()
 
 void Drawable::update()
 {
-    glBindVertexArrayAPPLE(vao);
+    glBindVertexArray(vao);
 
     //vbuffer
     glBindBuffer(GL_ARRAY_BUFFER, vbuffer);
@@ -65,7 +65,7 @@ void Drawable::update()
 Drawable::~Drawable()
 {
     // delete vertex array object
-    glDeleteVertexArraysAPPLE(1, &vao);
+    glDeleteVertexArrays(1, &vao);
 
     // delete buffers
     glDeleteBuffers(1, &vbuffer);
@@ -76,6 +76,6 @@ Drawable::~Drawable()
     glDisableVertexAttribArray(1);
 
     // unbind vao and buffers
-    glBindVertexArrayAPPLE(0);
+    glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
